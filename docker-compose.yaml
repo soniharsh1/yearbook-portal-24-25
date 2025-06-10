@@ -1,0 +1,30 @@
+services:
+  client:
+    container_name: yearbook-portal-client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - yearbook-portal
+    depends_on:
+      - server
+    env_file:
+      - client/.env
+  
+  server:
+    container_name: yearbook-portal-server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - yearbook-portal
+    env_file:
+      - server/.env
+
+networks : 
+  yearbook-portal:
+    driver: bridge
